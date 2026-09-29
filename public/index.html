@@ -37,7 +37,7 @@
       display: grid;
       grid-template-rows: 1fr auto;
       background:
-        linear-gradient(rgba(250, 248, 241, 0.28), rgba(250, 248, 241, 0.28)),
+        linear-gradient(rgba(250, 248, 241, 0), rgba(250, 248, 241, 0)),
         url("background.png") center / cover fixed;
     }
 
@@ -55,9 +55,10 @@
 
     .brand-name {
       margin: 2px 0 0;
-      color: #152633;
+      color: #111111;
       font-size: clamp(22px, 3.5vw, 32px);
       font-weight: 400;
+      font-style: italic;
       line-height: 1.35;
     }
 
@@ -113,6 +114,9 @@
     .auth-form {
       display: none;
       flex-direction: column;
+      width: min(100%, 470px);
+      margin-right: auto;
+      margin-left: auto;
       gap: 30px;
       text-align: left;
     }
@@ -124,6 +128,22 @@
     .field {
       position: relative;
       display: block;
+    }
+
+    .field::after {
+      position: absolute;
+      bottom: 0;
+      left: 40px;
+      width: min(46%, 180px);
+      height: 1px;
+      background: #171914;
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .field:focus-within::after {
+      opacity: 1;
     }
 
     .visually-hidden {
@@ -144,7 +164,7 @@
       border-radius: 0;
       background: transparent;
       color: #17232b;
-      padding: 12px 40px;
+      padding: 12px 8px 12px 40px;
       font: inherit;
       font-size: 18px;
     }
@@ -157,7 +177,6 @@
 
     input:focus,
     .input-field:focus {
-      border-bottom: 1px solid #171914;
       outline: none;
     }
 
@@ -171,33 +190,6 @@
       stroke: #000000;
       pointer-events: none;
       transform: translateY(-50%);
-    }
-
-    .password-toggle {
-      position: absolute;
-      top: 50%;
-      right: 4px;
-      display: grid;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      place-items: center;
-      border: 0;
-      background: transparent;
-      color: #000000;
-      cursor: pointer;
-      transform: translateY(-50%);
-    }
-
-    .password-toggle svg {
-      width: 20px;
-      height: 20px;
-      stroke: #000000;
-    }
-
-    .password-toggle:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 2px;
     }
 
     .submit-button {
@@ -372,11 +364,6 @@
             <rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 1 1 8 0v3"></path><circle cx="12" cy="15.5" r="1"></circle><path d="M12 16.5v2"></path>
           </svg>
           <input class="input-field" id="login-password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
-          <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </button>
         </div>
         <button class="submit-button" type="submit" aria-label="Login">Login</button>
         <p class="form-message" aria-live="polite"></p>
@@ -404,11 +391,6 @@
             <rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 1 1 8 0v3"></path><circle cx="12" cy="15.5" r="1"></circle><path d="M12 16.5v2"></path>
           </svg>
           <input class="input-field" id="register-password" name="password" type="password" placeholder="Password" autocomplete="new-password" required>
-          <button class="password-toggle" type="button" aria-label="Show password" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </button>
         </div>
         <div class="field">
           <label class="visually-hidden" for="register-confirm-password">Confirm Password</label>
@@ -416,11 +398,6 @@
             <rect x="4" y="10" width="16" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 1 1 8 0v3"></path><circle cx="12" cy="15.5" r="1"></circle><path d="M12 16.5v2"></path>
           </svg>
           <input class="input-field" id="register-confirm-password" name="confirmPassword" type="password" placeholder="Confirm Password" autocomplete="new-password" required>
-          <button class="password-toggle" type="button" aria-label="Show confirm password" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </button>
         </div>
         <button class="submit-button" type="submit" aria-label="Create account">Register</button>
         <p class="form-message" aria-live="polite"></p>

@@ -75,19 +75,6 @@ document.querySelector("#switch-to-login").addEventListener("click", () => {
   activateTab(document.querySelector("#login-tab"));
 });
 
-document.querySelectorAll(".password-toggle").forEach((toggle) => {
-  toggle.addEventListener("click", () => {
-    const input = toggle.parentElement.querySelector("input");
-    const visible = input.type === "password";
-    input.type = visible ? "text" : "password";
-    toggle.setAttribute("aria-pressed", String(visible));
-    toggle.setAttribute(
-      "aria-label",
-      `${visible ? "Hide" : "Show"} ${input.name === "confirmPassword" ? "confirm password" : "password"}`,
-    );
-  });
-});
-
 document.querySelector("#login-panel").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
