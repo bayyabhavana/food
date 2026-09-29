@@ -21,6 +21,14 @@
       box-sizing: border-box;
     }
 
+    html {
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
     body {
       min-width: 320px;
       min-height: 100vh;
@@ -43,7 +51,6 @@
       width: min(100%, 600px);
       padding: 28px 24px 32px;
       text-align: center;
-      animation: arrive 650ms ease both;
     }
 
     .brand-name {
@@ -68,7 +75,6 @@
       gap: clamp(38px, 8vw, 76px);
       width: min(100%, 470px);
       margin: 38px auto 30px;
-      border-bottom: 1px solid rgba(23, 25, 20, 0.16);
     }
 
     .tab {
@@ -84,25 +90,9 @@
       cursor: pointer;
     }
 
-    .tab::after {
-      position: absolute;
-      right: 0;
-      bottom: -1px;
-      left: 0;
-      height: 3px;
-      background: #19965a;
-      content: "";
-      transform: scaleX(0);
-      transition: transform 180ms ease;
-    }
-
     .tab[aria-selected="true"] {
-      color: #15191b;
+      color: #19965a;
       font-weight: 700;
-    }
-
-    .tab[aria-selected="true"]::after {
-      transform: scaleX(1);
     }
 
     .auth-form {
@@ -114,7 +104,6 @@
 
     .auth-form.is-active {
       display: flex;
-      animation: arrive 260ms ease both;
     }
 
     .field {
@@ -137,15 +126,12 @@
       width: 100%;
       box-sizing: border-box;
       border: 0;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.95);
       border-radius: 0;
       background: transparent;
       color: #17232b;
-      outline: none;
       padding: 12px 40px;
       font: inherit;
       font-size: 18px;
-      transition: border-color 180ms ease, box-shadow 180ms ease;
     }
 
     input::placeholder,
@@ -156,8 +142,8 @@
 
     input:focus,
     .input-field:focus {
-      border-bottom: 2px solid #ffffff;
-      box-shadow: 0 1px 0 #ffffff;
+      border-bottom: 1px solid #171914;
+      outline: none;
     }
 
     .input-icon {
@@ -214,11 +200,10 @@
       font-size: 30px;
       font-weight: 700;
       cursor: pointer;
-      transition: color 180ms ease, transform 180ms ease;
+      transition: color 180ms ease;
     }
 
     .submit-button:hover {
-      transform: translateY(-1px);
       color: #117743;
     }
 
@@ -265,11 +250,6 @@
       text-align: center;
     }
 
-    @keyframes arrive {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @media (max-width: 480px) {
       main {
         padding: 30px 16px 22px;
@@ -285,6 +265,58 @@
 
       .account-switch {
         font-size: 15px;
+      }
+    }
+
+    @media (max-height: 760px) {
+      main {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .auth-card {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .telugu {
+        font-size: clamp(32px, 5vw, 44px);
+        line-height: 1.25;
+      }
+
+      .brand-name {
+        font-size: clamp(19px, 3vw, 25px);
+      }
+
+      .auth-tabs {
+        margin-top: 20px;
+        margin-bottom: 18px;
+      }
+
+      .auth-form {
+        gap: 17px;
+      }
+
+      input,
+      .input-field {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      .submit-button {
+        height: 42px;
+        margin-top: 0;
+        font-size: 25px;
+      }
+
+      .account-switch {
+        margin-top: 4px;
+        font-size: 15px;
+      }
+
+      footer {
+        padding-top: 6px;
+        padding-bottom: 8px;
       }
     }
 
