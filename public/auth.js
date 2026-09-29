@@ -16,6 +16,10 @@ function activateTab(tab) {
     panel.classList.toggle("is-active", isActive);
     panel.querySelector(".form-message").textContent = "";
   });
+  document.querySelector("#login-switch").hidden =
+    tab.id !== "login-tab";
+  document.querySelector("#register-switch").hidden =
+    tab.id !== "register-tab";
 }
 
 async function submitCredentials(form, endpoint, credentials) {
@@ -60,6 +64,27 @@ tabs.forEach((tab, index) => {
       tabs[nextIndex].focus();
       activateTab(tabs[nextIndex]);
     }
+  });
+});
+
+document.querySelector("#switch-to-register").addEventListener("click", () => {
+  activateTab(document.querySelector("#register-tab"));
+});
+
+document.querySelector("#switch-to-login").addEventListener("click", () => {
+  activateTab(document.querySelector("#login-tab"));
+});
+
+document.querySelectorAll(".password-toggle").forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const input = toggle.parentElement.querySelector("input");
+    const visible = input.type === "password";
+    input.type = visible ? "text" : "password";
+    toggle.setAttribute("aria-pressed", String(visible));
+    toggle.setAttribute(
+      "aria-label",
+      `${visible ? "Hide" : "Show"} ${input.name === "confirmPassword" ? "confirm password" : "password"}`,
+    );
   });
 });
 
