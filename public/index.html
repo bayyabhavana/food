@@ -79,7 +79,7 @@
 
     .tab {
       position: relative;
-      padding: 0 12px 12px;
+      padding: 0 12px 14px;
       border: 0;
       background: transparent;
       color: inherit;
@@ -90,9 +90,24 @@
       cursor: pointer;
     }
 
+    .tab::after {
+      position: absolute;
+      right: 0;
+      bottom: 8px;
+      left: 0;
+      height: 2px;
+      background: #19965a;
+      content: "";
+      opacity: 0;
+    }
+
     .tab[aria-selected="true"] {
       color: #19965a;
       font-weight: 700;
+    }
+
+    .tab[aria-selected="true"]::after {
+      opacity: 1;
     }
 
     .auth-form {
