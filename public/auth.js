@@ -18,6 +18,35 @@ function activateTab(tab) {
   });
 }
 
+async function submitCredentials(form, endpoint, credentials) {
+  const button = form.querySelector(".submit-button");
+  const message = form.querySelector(".form-message");
+  button.disabled = true;
+  message.textContent = "Please wait…";
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Unable to complete your request. Please try again.");
+    }
+
+    return result;
+  } catch (error) {
+    message.textContent = error instanceof TypeError
+      ? "Unable to connect to the server. Please try again."
+      : error.message;
+    return null;
+  } finally {
+    button.disabled = false;
+  }
+}
+
 tabs.forEach((tab, index) => {
   tab.addEventListener("click", () => activateTab(tab));
   tab.addEventListener("keydown", (event) => {
@@ -34,7 +63,7 @@ tabs.forEach((tab, index) => {
   });
 });
 
-document.querySelector("#login-panel").addEventListener("submit", (event) => {
+document.querySelector("#login-panel").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const data = new FormData(form);
@@ -42,11 +71,21 @@ document.querySelector("#login-panel").addEventListener("submit", (event) => {
     username: data.get("username"),
     password: data.get("password"),
   });
-  form.querySelector(".form-message").textContent =
-    error ?? "Your details are ready. Authentication is not connected in this demo.";
+  if (error) {
+    form.querySelector(".form-message").textContent = error;
+    return;
+  }
+
+  const result = await submitCredentials(form, "/login", {
+    username: data.get("username").trim(),
+    password: data.get("password"),
+  });
+  if (result) {
+    form.querySelector(".form-message").textContent = "Login successful.";
+  }
 });
 
-document.querySelector("#register-panel").addEventListener("submit", (event) => {
+document.querySelector("#register-panel").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const data = new FormData(form);
@@ -56,6 +95,21 @@ document.querySelector("#register-panel").addEventListener("submit", (event) => 
     password: data.get("password"),
     confirmPassword: data.get("confirmPassword"),
   });
-  form.querySelector(".form-message").textContent =
-    error ?? "Your details are ready. Registration is not connected in this demo.";
+  if (error) {
+    form.querySelector(".form-message").textContent = error;
+    return;
+  }
+
+  const result = await submitCredentials(form, "/register", {
+    name: data.get("username").trim(),
+    username: data.get("username").trim(),
+    email: data.get("email").trim(),
+    password: data.get("password"),
+  });
+  if (result) {
+    form.reset();
+    activateTab(tabs[0]);
+    document.querySelector("#login-panel .form-message").textContent =
+      "Registration successful. Please log in.";
+  }
 });

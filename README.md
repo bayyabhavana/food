@@ -4,7 +4,7 @@
 
 ఆరోగ్యమే మహా భాగ్యం — Health is Wealth
 
-A food-safety and healthy-living web application with a responsive login and registration interface.
+A food-safety and healthy-living web application with a responsive login and registration interface backed by the Express authentication API.
 
 ## Frontend
 
@@ -14,7 +14,7 @@ The current UI includes:
 - Required-field validation and password-confirmation checks
 - A produce background, readable overlay, and accessible form labels
 
-Login and registration are a frontend demo only: submissions are validated in the browser, but no credentials are sent to the server or saved. No authentication service is connected.
+Registration creates an account through the Express API, and login verifies the account. Successful registration returns to the login tab. Passwords are currently stored in plain text by the existing SQLite API; this demo backend is not suitable for production authentication.
 
 ## Run locally
 
@@ -24,4 +24,4 @@ Run the validation tests with `npm test`.
 
 ## Backend
 
-The Express server retains its SQLite `/register` and `/login` API and creates `users.db` on startup. The current frontend does not use these endpoints. The existing API stores passwords in plain text and is not suitable for production authentication.
+The Express server exposes SQLite-backed `/register` and `/login` endpoints and creates `users.db` on startup.
